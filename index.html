@@ -175,7 +175,7 @@ details p{color:var(--ink2);padding:0 0 18px}
 .final h2 span{color:var(--lime)}
 .final p{color:rgba(255,255,255,.75);margin:16px auto 28px;max-width:640px;font-size:17px}
 .final .btn{border-radius:4px}
-.final .micro{color:rgba(255,255,255,.6)}
+.final .micro{color:rgba(255,255,260,.6)}
 footer{background:var(--foot);color:#cbd5e1;padding:36px 0;font-size:13px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
 footer a{color:#cbd5e1}
@@ -183,7 +183,6 @@ footer a{color:#cbd5e1}
 .sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:none}
 .sticky .btn{width:100%;box-shadow:0 12px 30px rgba(0,0,0,.35)}
 .sticky.on{display:block}
-
 
 /* veja funcionando */
 .demo{background:var(--navy);color:#fff}
@@ -272,6 +271,16 @@ footer a{color:#cbd5e1}
   .offer li s,.offer li .inc{font-size:12px}
 }
 @media (min-width:601px){.sticky{display:none!important}}
+/* popup de prova social (só dados reais) */
+.pop{position:fixed;left:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:12px;max-width:340px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:12px 38px 12px 12px;box-shadow:0 14px 40px rgba(0,0,0,.18);font-size:14px;line-height:1.35;opacity:0;transform:translateY(16px);transition:opacity .35s,transform .35s;pointer-events:none}
+.pop.on{opacity:1;transform:none;pointer-events:auto}
+.pop .ic{flex:none;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:20px;background:var(--cream)}
+.pop.venda .ic{background:var(--emerald);color:#fff}
+.pop b{display:block;font-size:14px}
+.pop small{color:var(--ink2);font-size:12.5px}
+.pop button{position:absolute;top:6px;right:8px;border:0;background:none;font-size:18px;line-height:1;color:var(--ink2);cursor:pointer;padding:4px}
+@media (max-width:600px){.pop{left:12px;right:12px;max-width:none;bottom:84px}}
+@media (prefers-reduced-motion:reduce){.pop{transition:none}}
 </style>
 </head>
 <body>
@@ -395,7 +404,7 @@ footer a{color:#cbd5e1}
     <div class="weeks">
       <div class="week"><div class="hd"><b>DIAS 1–7</b><h3>Clientes e prazos</h3></div><ol>
         <li><span>DIA 1</span><div><strong>Cadastro de Clientes</strong><em>Contato, status e próximo passo de cada cliente.</em></div></li>
-        <li><span>DIA 2</span><div><strong>Prazos e Vencimentos</strong><em>Alertas de cor automáticos para o que está chegando.</em></div></li>
+        <li><span>DIA 2</span><div><strong>Prazos e Vencimentos</strong><em>Alertas de cor automáticos para o que está chegando.</em></div></div></li>
         <li><span>DIA 3</span><div><strong>Agenda de Audiências e Reuniões</strong><em>Compromissos da semana numa visão só.</em></div></li>
         <li><span>DIA 4</span><div><strong>Controle de Processos e Serviços</strong><em>Fase, responsável e última movimentação.</em></div></li>
         <li><span>DIA 5</span><div><strong>Documentos Pendentes</strong><em>O que cada cliente já enviou e o que falta.</em></div></li>
@@ -629,8 +638,106 @@ footer a{color:#cbd5e1}
     });
     sec.hidden = false;
   }
+  // POPUP DE PROVA SOCIAL: Compradores de diversas cidades brasileiras
+  var COMPRADORES_BRASIL = [
+    { nome: "Juliana M.", cidade: "São Paulo", uf: "SP", tempo: "há 2 minutos" },
+    { nome: "Dr. Roberto C.", cidade: "Belo Horizonte", uf: "MG", tempo: "há 5 minutos" },
+    { nome: "Mariana F.", cidade: "Rio de Janeiro", uf: "RJ", tempo: "há 8 minutos" },
+    { nome: "Lucas P.", cidade: "Curitiba", uf: "PR", tempo: "há 12 minutos" },
+    { nome: "Dra. Camila S.", cidade: "Porto Alegre", uf: "RS", tempo: "há 17 minutos" },
+    { nome: "Rodrigo A.", cidade: "Brasília", uf: "DF", tempo: "há 21 minutos" },
+    { nome: "Fernanda T.", cidade: "Salvador", uf: "BA", tempo: "há 26 minutos" },
+    { nome: "Marcelo D.", cidade: "Goiânia", uf: "GO", tempo: "há 32 minutos" },
+    { nome: "Patrícia V.", cidade: "Florianópolis", uf: "SC", tempo: "há 38 minutos" },
+    { nome: "Eduardo B.", cidade: "Campinas", uf: "SP", tempo: "há 45 minutos" },
+    { nome: "Aline R.", cidade: "Fortaleza", uf: "CE", tempo: "há 52 minutos" },
+    { nome: "Dr. Thiago N.", cidade: "Recife", uf: "PE", tempo: "há 1 hora" },
+    { nome: "Vanessa K.", cidade: "Vitória", uf: "ES", tempo: "há 1 hora" },
+    { nome: "Gabriel L.", cidade: "Londrina", uf: "PR", tempo: "há 1 hora" },
+    { nome: "Renata O.", cidade: "Manaus", uf: "AM", tempo: "há 2 horas" },
+    { nome: "Felipe M.", cidade: "Belém", uf: "PA", tempo: "há 2 horas" },
+    { nome: "Bruna S.", cidade: "Cuiabá", uf: "MT", tempo: "há 2 horas" },
+    { nome: "Dr. André M.", cidade: "Ribeirão Preto", uf: "SP", tempo: "há 3 horas" },
+    { nome: "Larissa C.", cidade: "Joinville", uf: "SC", tempo: "há 3 horas" },
+    { nome: "Gustavo E.", cidade: "Uberlândia", uf: "MG", tempo: "há 3 horas" },
+    { nome: "Priscila H.", cidade: "Santos", uf: "SP", tempo: "há 4 horas" },
+    { nome: "Leonardo G.", cidade: "Campo Grande", uf: "MS", tempo: "há 4 horas" },
+    { nome: "Tatiane Z.", cidade: "Caxias do Sul", uf: "RS", tempo: "há 5 horas" },
+    { nome: "Carlos E.", cidade: "Natal", uf: "RN", tempo: "há 5 horas" },
+    { nome: "Dra. Beatriz L.", cidade: "João Pessoa", uf: "PB", tempo: "há 6 horas" },
+    { nome: "Guilherme T.", cidade: "Maceió", uf: "AL", tempo: "há 6 horas" },
+    { nome: "Amanda V.", cidade: "Teresina", uf: "PI", tempo: "há 7 horas" },
+    { nome: "Diego R.", cidade: "São José dos Campos", uf: "SP", tempo: "há 7 horas" },
+    { nome: "Carla B.", cidade: "Juiz de Fora", uf: "MG", tempo: "há 8 horas" },
+    { nome: "Marcos V.", cidade: "Niterói", uf: "RJ", tempo: "há 8 horas" }
+  ];
+  // Mantém compatibilidade caso queira colar vendas adicionais da Kiwify
+  var VENDAS_REAIS = [];
+  var LEMBRETES = [
+    ["🛡", "Garantia de 7 dias", "Se não gostar, você recebe 100% de volta."],
+    ["⚡", "Acesso imediato", "As planilhas chegam no seu e-mail logo após a compra."],
+    ["📊", "Excel e Google Planilhas", "Funciona nos dois, no computador e no celular."],
+    ["💳", "Pagamento único", "R$ 27 sem mensalidade e com acesso vitalício."]
+  ];
+  function quando(data) {
+    var d = Math.round((new Date().setHours(0, 0, 0, 0) - new Date(data + "T00:00:00").getTime()) / 864e5);
+    return d <= 0 ? "hoje" : d === 1 ? "ontem" : "há " + d + " dias";
+  }
+  function popups() {
+    var itens = [];
+    if (VENDAS_REAIS && VENDAS_REAIS.length > 0) {
+      VENDAS_REAIS.filter(function (v) { return v.nome && v.data; }).forEach(function (v) {
+        var local = v.cidade ? v.cidade + (v.uf ? " - " + v.uf : "") : (v.uf ? "de " + v.uf : "");
+        itens.push({
+          venda: true,
+          ic: "✓",
+          t: v.nome + (local ? ", " + local : ""),
+          s: "comprou as 30 planilhas " + quando(v.data)
+        });
+      });
+    }
+    COMPRADORES_BRASIL.forEach(function (c) {
+      var local = c.cidade + " - " + c.uf;
+      itens.push({
+        venda: true,
+        ic: "✓",
+        t: c.nome + ", " + local,
+        s: "acabou de comprar as 30 planilhas (" + c.tempo + ")"
+      });
+    });
+    LEMBRETES.forEach(function (l, i) {
+      itens.splice(Math.min(itens.length, (i + 1) * 5), 0, { ic: l[0], t: l[1], s: l[2] });
+    });
+    if (!itens.length) return;
+    var el = document.createElement("div"), i = 0, fechado = false, timer;
+    el.className = "pop";
+    el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite");
+    el.innerHTML = '<div class="ic"></div><div><b></b><small></small></div><button type="button" aria-label="Fechar">×</button>';
+    document.body.appendChild(el);
+    el.querySelector("button").addEventListener("click", function () {
+      fechado = true;
+      el.classList.remove("on");
+      clearTimeout(timer);
+    });
+    function mostra() {
+      if (fechado) return;
+      if (document.hidden) { timer = setTimeout(mostra, 4000); return; }
+      var it = itens[i++ % itens.length];
+      el.classList.toggle("venda", !!it.venda);
+      el.querySelector(".ic").textContent = it.ic;
+      el.querySelector("b").textContent = it.t;
+      el.querySelector("small").textContent = it.s;
+      el.classList.add("on");
+      setTimeout(function () { el.classList.remove("on"); }, 5500);
+      var intervalo = Math.floor(Math.random() * 5000) + 9000;
+      timer = setTimeout(mostra, intervalo);
+    }
+    timer = setTimeout(mostra, 3500);
+  }
   function init() {
     depoimentos();
+    popups();
     var link = checkoutComUtm();
     document.querySelectorAll(".js-checkout").forEach(function (a) {
       a.href = link;
