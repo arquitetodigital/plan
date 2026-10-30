@@ -281,6 +281,28 @@ footer a{color:#cbd5e1}
 .pop button{position:absolute;top:6px;right:8px;border:0;background:none;font-size:18px;line-height:1;color:var(--ink2);cursor:pointer;padding:4px}
 @media (max-width:600px){.pop{left:12px;right:12px;max-width:none;bottom:84px}}
 @media (prefers-reduced-motion:reduce){.pop{transition:none}}
+/* prova social: carrossel infinito (desktop) e cards empilhados (celular) */
+.provas{background:var(--dark);color:#f7f7ef;overflow:hidden}
+.provas h2.t{color:#fff;margin:0 auto;font-size:clamp(28px,4vw,42px)}
+.provas .eyebrow{color:var(--lime)}
+.provas .sub{color:rgba(247,247,239,.75);margin:12px auto 0}
+.pv-viewport{margin-top:40px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.pv-track{display:flex;gap:22px;width:max-content;align-items:center;animation:pv-rola 48s linear infinite}
+.pv{margin:0;flex:none;background:#fff;border-radius:18px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,.45);border:3px solid var(--lime)}
+.pv img{display:block;height:340px;width:auto;border-radius:12px}
+@keyframes pv-rola{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 11px))}}
+.pv-res{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:36px}
+.pv-res span{background:rgba(228,242,93,.1);border:1px solid rgba(228,242,93,.35);color:#f7f7ef;border-radius:999px;padding:10px 18px;font-size:15px}
+.pv-res b{color:var(--lime)}
+.provas .pv-micro{color:rgba(247,247,239,.65)}
+@media (max-width:700px){
+  .pv-viewport{-webkit-mask-image:none;mask-image:none;margin-top:28px;padding:0 16px}
+  .pv-track{animation:none;flex-direction:column;width:auto;gap:18px}
+  .pv[aria-hidden="true"]{display:none}
+  .pv{width:100%;max-width:460px}
+  .pv img{width:100%;height:auto}
+  .pv-res{flex-direction:column;align-items:stretch}
+}
 </style>
 </head>
 <body>
@@ -484,24 +506,35 @@ footer a{color:#cbd5e1}
   </div>
 </section>
 
-<!-- VITALÍCIO -->
-<section class="sec cream">
+<!-- PROVA SOCIAL: prints reais de compradores (enviados com autorização) -->
+<section class="sec provas" id="depoimentos">
   <div class="wrap center">
-    <h2 class="t">O preço sobe. O seu acesso fica.</h2>
-    <div class="vit">
-      <div class="card"><div class="ic dark" style="margin:0 auto 14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a4 4 0 0 0-6 3 4 4 0 1 1 0 2 4 4 0 1 0 6 3"/></svg></div><h3>Acesso vitalício</h3><p>As 30 planilhas são suas. Baixe, copie e use em quantos computadores precisar.</p></div>
-      <div class="card"><div class="ic dark" style="margin:0 auto 14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><h3>Atualizações gratuitas</h3><p>Quando o kit ganhar planilhas novas e melhorias, você recebe no mesmo acesso.</p></div>
-    </div>
-    <div style="margin-top:28px"><a class="btn btn-lime js-checkout" href="https://pay.kiwify.com.br/LM3Rbms">Quero o kit + bônus →</a></div>
+    <span class="eyebrow">Quem comprou, aprovou</span>
+    <h2 class="t">Eles pagaram os mesmos R$ 27.<br>Olha o que mudou no escritório deles.</h2>
+    <p class="sub">Mensagens reais de quem comprou as Planilhas Inteligentes nos últimos dias. Sem roteiro, sem ator.</p>
   </div>
-</section>
-
-<!-- DEPOIMENTOS: só aparece quando houver depoimentos reais na lista DEPOIMENTOS (no fim do arquivo) -->
-<section class="sec cream" id="depoimentos" hidden>
+  <div class="pv-viewport">
+    <div class="pv-track">
+        <figure class="pv"><img src="assets/depoimentos/depoimento-1.webp" alt="Print de WhatsApp: advogada elogia a planilha de honorários e cobranças" width="804" height="730" loading="lazy"></figure>
+        <figure class="pv"><img src="assets/depoimentos/depoimento-2.webp" alt="Print de WhatsApp: cliente diz que foi uma das melhores compras e já indicou a colegas" width="800" height="392" loading="lazy"></figure>
+        <figure class="pv"><img src="assets/depoimentos/depoimento-3.webp" alt="Print de WhatsApp: cliente já usa as planilhas de clientes, prazos e o dashboard financeiro" width="802" height="406" loading="lazy"></figure>
+        <figure class="pv"><img src="assets/depoimentos/depoimento-4.webp" alt="Print de WhatsApp: cliente diz que a planilha de prazos o salvou" width="804" height="614" loading="lazy"></figure>
+        <figure class="pv"><img src="assets/depoimentos/depoimento-5.webp" alt="Print de WhatsApp: cliente organizou clientes, prazos e honorários em poucos minutos" width="800" height="652" loading="lazy"></figure>
+        <figure class="pv" aria-hidden="true"><img src="assets/depoimentos/depoimento-1.webp" alt="" width="804" height="730" loading="lazy"></figure>
+        <figure class="pv" aria-hidden="true"><img src="assets/depoimentos/depoimento-2.webp" alt="" width="800" height="392" loading="lazy"></figure>
+        <figure class="pv" aria-hidden="true"><img src="assets/depoimentos/depoimento-3.webp" alt="" width="802" height="406" loading="lazy"></figure>
+        <figure class="pv" aria-hidden="true"><img src="assets/depoimentos/depoimento-4.webp" alt="" width="804" height="614" loading="lazy"></figure>
+        <figure class="pv" aria-hidden="true"><img src="assets/depoimentos/depoimento-5.webp" alt="" width="800" height="652" loading="lazy"></figure>
+    </div>
+  </div>
   <div class="wrap center">
-    <span class="eyebrow">Quem já usa</span>
-    <h2 class="t" style="margin:0 auto">O que estão dizendo das Planilhas Inteligentes</h2>
-    <div class="deps" id="deps"></div>
+    <div class="pv-res">
+      <span><b>Honorários</b> em segundos: quem pagou e quem atrasou</span>
+      <span><b>Prazos</b> que não passam mais despercebidos</span>
+      <span><b>IA</b> que ajusta as fórmulas, mesmo sem dominar Excel</span>
+    </div>
+    <div style="margin-top:26px"><a class="btn btn-lime js-checkout" href="https://pay.kiwify.com.br/LM3Rbms">Quero o mesmo no meu escritório →</a></div>
+    <p class="micro pv-micro">Acesso imediato e vitalício · Garantia de 7 dias</p>
   </div>
 </section>
 
